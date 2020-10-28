@@ -2,6 +2,8 @@
 using CRUD.API.DTOs;
 using CRUD.API.Interfaces;
 using CRUD.Application.Interfaces;
+using CRUD.Application.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,9 +20,17 @@ namespace CRUD.API.Services
             this.mapper = mapper;
         }
 
-        public Task<CustomerDto> CreateCustomer(CustomerDto customerDto)
+        public async Task<CustomerDto> CreateCustomer(CustomerToCreateDto customerDto)
         {
-            throw new System.NotImplementedException();
+            var mappedCustomer = mapper.Map<CustomerModel>(customerDto);
+            if (mappedCustomer == null)
+                throw new Exception($"Entidade não pode ser mapeada.");
+
+            var customer = await customerService.Create(mappedCustomer);
+
+            var returnedCustomer = mapper.Map<CustomerDto>(customer);
+
+            return returnedCustomer;
         }
 
         public Task DeleteCustomer(CustomerDto customerDto)

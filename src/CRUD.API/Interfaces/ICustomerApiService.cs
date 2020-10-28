@@ -8,7 +8,7 @@ namespace CRUD.API.Interfaces
     {
         Task<CustomerDto> GetCustomerById(int customerId);
         Task<IEnumerable<CustomerDto>> GetCustomers();
-        Task<CustomerDto> CreateCustomer(CustomerDto customerDto);
+        Task<CustomerDto> CreateCustomer(CustomerToCreateDto customerDto);
         Task UpdateCustomer(CustomerDto customerDto);
         Task DeleteCustomer(CustomerDto customerDto);
     }

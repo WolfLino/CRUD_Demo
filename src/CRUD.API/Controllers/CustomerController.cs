@@ -1,4 +1,5 @@
-﻿using CRUD.API.Interfaces;
+﻿using CRUD.API.DTOs;
+using CRUD.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -24,6 +25,16 @@ namespace CRUD.API.Controllers
                 return NotFound(new { StatusCode = 404, Message = "Cliente não encontrado." });
 
             return Ok(customer);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostWalletAsync(CustomerToCreateDto customerDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customer = await customerService.CreateCustomer(customerDto);
+            return CreatedAtRoute("GetCustomer", new { customerId = customer.Id }, customer);
         }
     }
 }

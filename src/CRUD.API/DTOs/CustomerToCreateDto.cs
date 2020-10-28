@@ -1,12 +1,9 @@
-﻿using CRUD.Core.Entities.Base;
-using System;
+﻿using System;
 
-namespace CRUD.Core.Entities
+namespace CRUD.API.DTOs
 {
-    public class Customer : Entity
+    public class CustomerToCreateDto
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }

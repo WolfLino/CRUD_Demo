@@ -20,8 +20,6 @@ namespace CRUD.Application.Models
 
         public string Complement { get; set; }
 
-        public string Bairro { get; set; }
-
         public string Neighborhood { get; set; }
 
         public string State { get; set; }
