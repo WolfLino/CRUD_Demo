@@ -1,6 +1,10 @@
 <div class="container">
-  <div class="row justify-content-center my-3">
-    <div class="input-group col-6">
+  <div class="row justify-content-between my-3">
+    <div class="col-6 pl-0">
+      <button class="btn btn-primary mr-2">Adicionar</button>
+      <button class="btn btn-danger" [disabled]="!checks.includes(true)">Remover</button>
+    </div>
+    <div class="input-group col-6 pr-0">
       <input type="text" class="form-control" placeholder="Buscar">
       <div class="input-group-append">
         <button class="btn btn-dark" type="button">Busca</button>
@@ -14,14 +18,22 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Nome</th>
-          <th scope="col">Data de Nascimento</th>
+          <th scope="col">Cidade</th>
+          <th scope="col">Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers">
-          <th scope="row">1</th>
+        <tr *ngFor="let customer of customers; let i = index">
+          <th scope="row"><input type="checkbox" (change)="checkboxChange($event, i)"></th>
           <td>{{ customer.name }}</td>
-          <td>{{ customer.dateOfBirth | date }}</td>
+          <td>{{ customer.city }}</td>
+          <td>
+            <!-- Isso é só um teste... estou com sono... -->
+            <div class="justify-content-center">
+              <button class="btn btn-circle btn-sm mr-3">Editar</button>
+              <button class="btn btn-circle btn-sm">Remover</button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
