@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CRUD.API.DTOs;
 using CRUD.API.Interfaces;
+using CRUD.Application.DTOs;
 using CRUD.Application.Interfaces;
 using CRUD.Application.Models;
 using System;
@@ -12,12 +12,14 @@ namespace CRUD.API.Services
     public class CustomerApiService : ICustomerApiService
     {
         private readonly ICustomerService customerService;
+        private readonly IAddressService addressService;
         private readonly IMapper mapper;
 
-        public CustomerApiService(ICustomerService customerService, IMapper mapper)
+        public CustomerApiService(ICustomerService customerService, IAddressService addressService, IMapper mapper)
         {
-            this.customerService = customerService;
-            this.mapper = mapper;
+            this.customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+            this.addressService = addressService ?? throw new ArgumentNullException(nameof(addressService));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<CustomerDto> CreateCustomer(CustomerToCreateDto customerDto)
@@ -35,7 +37,7 @@ namespace CRUD.API.Services
 
         public Task DeleteCustomer(CustomerDto customerDto)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public async Task<CustomerDto> GetCustomerById(int customerId)
@@ -47,12 +49,23 @@ namespace CRUD.API.Services
 
         public Task<IEnumerable<CustomerDto>> GetCustomers()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task UpdateCustomer(CustomerDto customerDto)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public async Task<AddressDto> GetAddressByCep(string cep)
+        {
+            var address = await addressService.GetAddressByCep(cep);
+
+            if (address == null)
+                return null;
+
+            var mapped = mapper.Map<AddressDto>(address);
+            return mapped;
         }
     }
 }

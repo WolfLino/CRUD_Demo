@@ -1,4 +1,5 @@
 using AutoMapper;
+using CRUD.API.HealthChecks;
 using CRUD.API.Interfaces;
 using CRUD.API.Services;
 using CRUD.Application.Interfaces;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System;
 
 namespace CRUD.API
 {
@@ -72,10 +74,17 @@ namespace CRUD.API
 
             // Camada Application
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddHttpClient();
 
             // Camada API
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICustomerApiService, CustomerApiService>();
+
+            // Add Miscellaneous
+            services.AddHttpContextAccessor();
+            services.AddHealthChecks()
+                .AddCheck<HealthCheck>("HealthCheck");
         }
 
         private void ConfigureDatabases(IServiceCollection services)

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CRUD.API.DTOs;
+using CRUD.Application.DTOs;
 using CRUD.Application.Models;
 
 namespace CRUD.API.Mapper
@@ -10,6 +10,13 @@ namespace CRUD.API.Mapper
         {
             CreateMap<CustomerToCreateDto, CustomerModel>().ReverseMap();
             CreateMap<CustomerDto, CustomerModel>().ReverseMap();
+            CreateMap<ViaCepModel, AddressDto>()
+                .ForMember(dest => dest.Cep, source => source.MapFrom(source => source.Cep))
+                .ForMember(dest => dest.City, source => source.MapFrom(source => source.Localidade))
+                .ForMember(dest => dest.Complement, source => source.MapFrom(source => source.Complemento))
+                .ForMember(dest => dest.Neighborhood, source => source.MapFrom(source => source.Bairro))
+                .ForMember(dest => dest.State, source => source.MapFrom(source => source.Uf))
+                .ForMember(dest => dest.Street, source => source.MapFrom(source => source.Logradouro));
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace CRUD.API.DTOs
+namespace CRUD.Application.DTOs
 {
-    public class CustomerToCreateDto
+    public class CustomerDto
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
