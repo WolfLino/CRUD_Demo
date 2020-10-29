@@ -45,9 +45,11 @@ namespace CRUD.Application.Services
             return mapped;
         }
 
-        public Task<IEnumerable<CustomerModel>> GetCustomerList()
+        public async Task<IEnumerable<CustomerModel>> GetCustomerList()
         {
-            throw new System.NotImplementedException();
+            var customers = await customerRepository.GetAllAsync();
+            var mapped = ObjectMapper.Mapper.Map<IEnumerable<CustomerModel>>(customers);
+            return mapped;
         }
 
         public Task Update(CustomerModel customerModel)

@@ -38,6 +38,14 @@ namespace CRUD.API.Controllers
             return CreatedAtRoute("GetCustomer", new { customerId = customer.Id }, customer);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllCustomers()
+        {
+            var customers = await customerApiService.GetCustomers();
+
+            return Ok(customers);
+        }
+
         [HttpGet("cep/{cep}")]
         public async Task<IActionResult> GetCep(string cep)
         {

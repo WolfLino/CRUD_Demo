@@ -47,9 +47,11 @@ namespace CRUD.API.Services
             return mapped;
         }
 
-        public Task<IEnumerable<CustomerDto>> GetCustomers()
+        public async Task<IEnumerable<CustomerDto>> GetCustomers()
         {
-            throw new NotImplementedException();
+            var customers = await customerService.GetCustomerList();
+            var mapped = mapper.Map<IEnumerable<CustomerDto>>(customers);
+            return mapped;
         }
 
         public Task UpdateCustomer(CustomerDto customerDto)
